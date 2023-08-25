@@ -1,0 +1,74 @@
+################### 13. Filtering Rows with "Where"
+
+contoh penggunaan where:
+SELECT name,area FROM cities WHERE area > 2000;
+
+perlu di ingat untuk urutan eksekusi nya adalah:
+1. FROM cities
+2. WHERE area > 2000
+3. SELECT name,area 
+
+
+
+################## 14. More on the "Where" Keyword
+disini di jelaskan operator komparasi yang dapat digunakan:
+=
+>
+<
+<>
+>=
+<=
+!= 
+between
+in
+not in
+
+
+####################### 15. Compound "Where" Clauses
+contoh penggunaan between:
+SELECT name,area FROM cities WHERE area BETWEEN 1000 AND 2000;
+
+contoh penggunaan IN:
+SELECT name,area FROM cities  WHERE area IN (1000,2300,2345);
+in menampilkan data sesuai kondisi di dalam IN
+
+contoh penggunaan NOT IN:
+SELECT name,area FROM cities  WHERE area NOT IN (1000,2300,2345);
+
+NOT IN kebalikan dari IN, arti nya menampilkan data yang tidak ada di dalam ()
+
+contoh lain:
+SELECT name,area FROM cities  WHERE name NOT IN ('Bekasi');
+arti nya tampilkan data selain kota Bekasi
+
+
+kita juga bisa menggunakan Compound (menambahkan kondisi)
+contoh:
+SELECT name,area FROM cities  WHERE name NOT IN ('Bekasi') AND area > 2000;
+
+
+
+####################### 20. Calculations in "Where" Clauses
+
+contoh code:
+SELECT
+  name, population / area AS population_density
+FROM
+  cities
+WHERE
+	population / area < 1000
+
+arti nya menampilkan name dan population_density berdasarkan hasil pembagian population / area harus lebih kecil dari 1000
+
+
+
+
+
+############### 22. Updating Rows
+cara update data:
+UPDATE cities SET population = 15000 WHERE name='Jakarta'
+
+
+############### 23. Deleting Rows
+cara delet data:
+DELETE FROM cities WHERE name='Bandung'

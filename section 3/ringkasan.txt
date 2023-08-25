@@ -1,0 +1,86 @@
+################# 28. One-to-Many and Many-to-One Relationships
+one to many -> 1 ke banyak
+misal 1 user punya banyak poto
+
+many to one -> banyak ke 1
+misal banyak foto di miliki 1 user
+
+
+
+
+
+
+
+
+
+
+######################### 32. Auto-Generated ID's
+
+kalau mau postre menghasasilkan nilai otomatis di primary key (id) gunakan keyword SERIAL
+dan untuk menandakan ini sebagai primary key tambahkan PRIMARY KEY
+full code nya:
+id SERIAL PRIMARY KEY
+
+contoh:
+CREATE TABLE users ( id SERIAL PRIMARY KEY, username VARCHAR(50));
+
+
+################## 33. Creating Foreign Key Columns
+cara membuat fk:
+
+CREATE TABLE photos(
+  id SERIAL PRIMARY KEY,
+  url VARCHAR(50),
+  user_id INTEGER REFERENCES users(id)
+);
+
+penjesalan: 
+user_id INTEGER REFERENCES users(id)
+maksud nya kita membuat fk dengan nama user_id yang REFERENCES (mengacu) pada tabel user dengan column id
+tipe data INTEGER diberikan karena id di user bertipe INTEGER juga
+
+
+
+########################### 34. Running Queries on Associated Data
+contoh query Associated:
+SELECT url, username FROM photos
+JOIN users ON users.id = photos.user_id;
+
+penjesalan:
+code di atas menampilkan url dari tabel photos dan username dari tabel users. 
+data di tampilkan berdasarkan user_id di tabel photos sama dengan id di tabel users.
+harus menggunakan JOIN untuk bisa menampilkan data yang beralasi ini jika yang di tampilkan dari tabel yang beda
+
+
+
+
+
+
+############################# 37. Foreign Key Constraints Around Insertion
+
+###########################$ 38. Constraints Around Deletion
+
+
+######################## 40. Testing Deletion Constraints
+
+contoh penggunaan on delete cascade
+
+CREATE TABLE photos (
+id SERIAL PRIMARY KEY,
+url VARCHAR(200),
+user_id INTEGER REFERENCES users(id) ON DELETE CASCADE
+);
+
+
+################### 41. Setting Foreign Keys to Null on Delete
+
+contoh penggunaan on delete set Null
+
+CREATE TABLE photos (
+id SERIAL PRIMARY KEY,
+url VARCHAR(200),
+user_id INTEGER REFERENCES users(id) ON DELETE SET NULL
+);
+
+
+artinya jika id di data users di hapus, maka di tabel photos id tersebut berubah menjadi null

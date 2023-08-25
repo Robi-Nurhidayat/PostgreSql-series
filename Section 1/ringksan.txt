@@ -1,0 +1,71 @@
+############################## 5. Creating Tables
+menjelaskan bagaimana cara buat Tables
+
+contoh:
+CREATE TABLE cities (
+  name VARCHAR(50),
+  country VARCHAR(50),
+  population INTEGER,
+  area INTEGER
+)
+
+
+
+############################## 7. Inserting Data Into a Table
+
+cara tambah Data sbb:
+INSERT INTO cities (name,country,population,area)
+VALUES('Jakarta','Indonesia',4000000,2345);
+
+kita juga dapat melakukan multiple inser data dengan perintah sbb:
+
+INSERT INTO cities (name,country,population,area)
+VALUES
+	('Bandung','Indonesia',10000,1123),
+    ('Bekasi','Indonesia',20000,2300),
+    ('Depok','Indonesia',10000,1000);
+
+
+
+
+############################## 8. Retrieving Data with Select
+cara menampilkan seluruh data dengan semua column:
+SELECT * FROM cities;
+
+menampilkan column tertentu:
+SELECT name, country FROM cities;
+
+
+
+
+
+
+
+
+############################## 9. Calculated Columns
+kita juga dapat menggunakan operator mtk seperti + - / *. ada beberapa operator lain yang bisa digunakan.
+untuk lebih jelas nya buka saja bagian Inserting
+
+contoh:
+
+SELECT name, population / area FROM cities
+
+secara defaul yang tampil column name sama ?column?
+
+untuk menamai column yang tampil gunakan AS
+
+contoh:
+SELECT name, population / area AS hasil FROM cities
+
+
+
+############# 12. String Operators and Functions
+operator untuk string :
+1. ||  -> join two strings
+2. Concat() -> join two strings
+3. Lower() -> gives a Lower case string
+4. Length() -> gives number of characters in a string
+5. Upper() -> gives an upper case string
+
+contoh code:
+SELECT CONCAT(UPPER(name),', ', LOWER(country)) FROM cities;

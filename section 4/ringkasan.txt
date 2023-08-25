@@ -1,0 +1,103 @@
+################### 44. Queries with Joins and Aggregations
+ kalau ada kata most, average dan least gunakan -> Aggregations
+
+kalau cuma disuruh nampilin aja gunakan Joins
+
+
+
+################## 45. Joining Data from Different Tables
+
+misal ada perintah:
+tampil comment atau content berdasarkan user yang melakukan comment
+
+code nya:
+SELECT contents, username FROM comments
+JOIN users ON users.id = comments.user_id
+
+
+###################### 49. Alternate Forms of Syntax
+
+##################### 52. Four Kinds of Joins
+
+Inner join == Join :
+
+menggabungkan 2 tabel. jika ada data yang tidak sesuai, maka tidak akan ditampilkan.
+misal tampilkan berdasarkan tabel a dan tabel b berdasarkan fk yang sama dengan id di salah 1 tabel
+
+contoh code:
+SELECT url,username FROM photos
+JOIN users on users.id = photos.user_id
+
+
+Left Join:
+
+menggabungkan 2 tabel hanya jika tabel yang kiri ada data yg tidak sama pada tabel relasi nya maka data itu tetap ditampilkan
+contoh menampilkan url dan username dari tabel photos dan users berdasarkan user_id di tabel photos dan id di tabel users
+
+di tabel photos ada data yang mana user_id di isi null. maka dengan perintah left join akan di tampilkan data nya, berbeda dengan join (inner join)
+yang tidak akan menampilkan data ini.
+
+contoh code:
+SELECT url,username FROM photos
+LEFT JOIN users on users.id = photos.user_id
+
+hasil nya adalah misal url = "http:banner.jpg" sedangkan username akan jadi null
+perlu diperhatikan yang left ada photos karena di awali dari from
+
+
+Right outer join / Right Join:
+
+kebalikan dari left join, dimana dari code :
+SELECT url,username FROM photos
+LEFT JOIN users on users.id = photos.user_id
+
+sedikit note: yang left itu tabel photos dan yang right tabel users
+
+yang awal hasil nya url = "http:banner.jpg" sedangkan username akan jadi null
+menjadi:
+url yang tidak cocok akan dibuang dan di ganti dengan null sedangkan dari user data nya akan di tampilkan
+berikut hasil nya: 
+url = null sedangkan username akan jadi data di tabel users misal username = "robi"
+
+
+
+Full Join :
+
+full join akan menggabungkan semua nya. menggabungkan hasil dari left join dan right join
+
+contoh hasil left join
+hasil nya adalah misal url = "http:banner.jpg" sedangkan username akan jadi null
+
+contoh hasil right join 
+url = null sedangkan username akan jadi data di tabel users misal username = "robi"
+
+misal ada 5 data di tabel photos dan 5 data di tabel users
+data ke 5 dari tabel photos user_id nya null.
+
+maka dengan full join jika tampilkan url dan username data nya jadi 6
+
+data ke 5 tampilan nya : url = "http:gambat.jpg" dan username = null
+data ke 6 tampilan nya : url = null dan username = "robi"
+
+
+
+
+
+########################### 57. Where with Join
+
+misal ingin menampilkan url dan contents berdasarkan user yang comment.user_id = photos.user_id
+
+contoh code:
+SELECT url, contens FROM comments
+JOIN photos ON photos.id = comments.photo_id
+WHERE comments.user_id = photos.user_id
+
+
+####################### 58. Three Way Joins
+
+menampilkan url, content dan juga username dari user yang melakukan komentar terhadap photo
+
+code :
+SELECT url,contents FROM comments
+JOIN photos ON photos.id = comments.photo_id
+JOIN users on users.id = comments.user_id AND users.id = photos.user_id

@@ -1,0 +1,38 @@
+###################### 61. Aggregating and Grouping
+
+######################## 62. Picturing Group By
+
+ketika kita menggunakan group by column yang kita select harus sama dengan yang kita group
+
+perhatikan code berikut dan pahami:
+SELECT user_id FROM COMMENTS GROUP BY user_id
+
+####################### 63. Aggregate Functions
+mereduce banyak nilai menjadi 1
+
+fungsi Aggregate
+
+count()
+sum()
+avg()
+min()
+max()
+
+
+######################## 64. Combining Group By and Aggregates
+kita jugga bisa mengkombinasi dari group by dan Aggregate
+
+misal kita ingin menampilkan user_id berdasarkan group by user_id, kemudian kita ingin menambah informasi tambahan
+berupa jumlah komentar yang dibuat oleh masing2 user_id. 
+note : jumlah komentar disini maksud nya bukan jumlah seluruh komentar yang ada
+melaikan komentar yang sudah di grup berdasarkan user_id
+
+contoh code:
+SELECT user_id, COUNT(id) AS jumlah_komentar FROM comments GROUP BY user_id
+
+
+####################### 65. A Gotcha with Count
+user_id null tidak akan di hitung menggunakan count()
+tapii jika ingin harus di hitung juga, gunakan count(*)
+
+artinya hitung saja baris nya (rows) bukan lg user_id
