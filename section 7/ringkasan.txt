@@ -1,0 +1,35 @@
+########################### 82. The Basics of Sorting
+
+cara order secara asc atau desc
+SELECT * FROM products ORDER BY price DESC
+
+########################### 83. Two Variations on Sorting
+
+kita juga dapat melakukan sort lebih dari 1 column
+
+contoh:
+SELECT * FROM products ORDER BY price DESC, weight ASC
+
+
+
+
+
+########################### 84. Offset and Limit
+
+Offset -> mensekip data 
+misal tabel user dengan data 10
+
+jika kita tambahan Offset 3, maka 3 data awal tidak akan di tampilkan
+code: 
+SELECT * FROM users OFFSET 3
+
+Limit -> menampilkan batasan data
+misal kita gunakan limit 3
+berarti data yang akan tampil cuma 3 aja dari 10 data
+code: 
+SELECT * FROM users LIMIT 3
+
+
+kita juga dapat menggabungkan kedua nya
+
+SELECT * FROM users LIMIT 3 OFFSET 1

@@ -1,0 +1,110 @@
+################ 87. Handling Sets with Union
+
+UNION adalah menggabungkan 2 statement
+misal kita ingin menampilkan data dengan 2 permasalhan.
+contoh kasus
+tampilkan 4 data penjualan dengan harga tertinggi dan tampilkan 4 data penjualan
+dengan price * weight
+
+maka kita bisa gunakan Union:
+(
+  SELECT
+    *
+  FROM
+    products
+  ORDER BY
+    price DESC
+  LIMIT
+    4
+)
+UNION
+  (
+    SELECT
+      *
+    FROM
+      products
+    ORDER BY
+      price / weight DESC
+    LIMIT
+      4
+  )
+
+
+################### 88. A Few Notes on Union
+
+union bisa menggunakan () dan juga tidak
+
+code di atas kita berikan column agar tidak error, karena kita bekerja dengan tabel yang sama
+
+dan juga agar bisa menggunakan union harus ada column yang sama
+
+contoh code:
+SELECT name,weight FROM products
+UNION
+SELECT name, price FROM products
+
+
+#################### 89. Commonalities with Intersect
+union
+union all
+Intersect
+Intersect all
+except
+except all
+
+cari definisi di atas
+
+pada video ini membahas tentang Intersect
+dimana ini merupakan kebalikan dari union
+dimana jika kita menggunakan union terdapat data yang sama dari 2 
+query, maka yang di tampilkan hanya data yang sama aja
+misal query 1 ada hasil nama robi, dan query 2 ada hasil nama robi juga, maka hanya data
+ini yang akan di tampilkan
+
+contoh code:
+(
+  SELECT
+    *
+  FROM
+    products
+  ORDER BY
+    price DESC
+  LIMIT
+    4
+)
+INTERSECT
+  (
+    SELECT
+      *
+    FROM
+      products
+    ORDER BY
+      price / weight DESC
+    LIMIT
+      4
+  )
+
+
+################## 90. Removing Commonalities with Except
+except (kecuali) adalah membuang data yang sama pada query pertama.
+misal kita melakukan 2 query mencari nama, nah pada query 1 terdapat 2 data hasil yang sama dari query ke 2
+maka di query 1 data nya akan di hapus yang sama dengan data query ke 2
+namun di query ke data nya tidak ikut di hapus, tetap kaya biasa aja
+
+Dan yang ditampilan hasil query nya yaitu query pertama
+contoh kasus
+tampil harga tertinggi secara descending dengan limit 4 dan juga tampilkan harga / weight secara descending dengan limit 4
+
+misal hasil nya:
+query 1:              query 2:
+id: 1, price: 1000    id: 3, price: 400
+id: 2, price: 2000    id: 2, price: 500
+id: 3, price: 1500    id: 6, price: 600
+id: 4, price: 3000    id: 5, price: 5000
+
+maka hasil akhir nya yang akan di tampilkan atau dilihat user:
+id: 1, price: 1000    
+id: 3, price: 1500    
+id: 4, price: 3000   
+
+sesuai definisi, yang sama akan di hapus

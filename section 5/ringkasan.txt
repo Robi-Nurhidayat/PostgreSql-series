@@ -36,3 +36,41 @@ user_id null tidak akan di hitung menggunakan count()
 tapii jika ingin harus di hitung juga, gunakan count(*)
 
 artinya hitung saja baris nya (rows) bukan lg user_id
+
+
+
+
+
+
+##################################### 71. Filtering Groups with Having
+
+Having mirip dengan Where. fungsi nya untuk menyaring. namun having bisa digunakan
+kalau ada group by. kalau ga ada grup by having tidak bisa digunakan.
+
+perlu di ingat baik2. kita tidak bisa menggunakan column yang tidak grup
+misal kita grup berdasarkan user_id, kemudian kita having user_id ini masih bisa
+kalau misal kita having poto_id maka akan error.
+solusi nya kta gunakan Where pada poto_id
+
+contoh code:
+SELECT
+  user_id,
+  COUNT(*)
+FROM
+  comments
+WHERE
+  photo_id < 3
+GROUP BY
+  user_id
+HAVING
+  user_id > 2
+
+################################## 73. More on Having!
+
+contoh lain : 
+
+SELECT user_id, count(*) FROM
+comments
+WHERE photo_id < 50
+GROUP BY user_id
+HAVING COUNT(*) > 20

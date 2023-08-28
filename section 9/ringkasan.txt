@@ -1,0 +1,64 @@
+################################ 93. What's a Subquery?
+
+adalah dimana kita melakukan query di dalam query
+
+contoh:
+tampilkan list nama dan price yang paling mahal di tabel products
+dimana price harus lebih mahal dari departement toys
+
+maka disni kita gunakan Subquery:
+contoh code:
+SELECT
+  name,
+  price
+FROM
+  products
+WHERE
+  price > (
+    SELECT
+      MAX(price)
+    FROM
+      products
+    WHERE
+      department = 'Toys'
+  )
+
+perlu di ingat baik2:
+blok code yang akan di eksekusi dahulu adalah bagian ini:
+(
+    SELECT
+      MAX(price)
+    FROM
+      products
+    WHERE
+      department = 'Toys'
+  )
+
+
+############################## 95. Subqueries in a Select
+
+select name,price,(disini isi Subqueries) -> single value (one column on row)
+pada penggunaan Subqueries di bagian select akan menghasilkan single value
+
+
+contoh code:
+
+SELECT
+  name,
+  price,
+  (
+    SELECT
+      price
+    FROM
+      products
+    WHERE
+      id = 3
+  ) AS id_price_3
+FROM
+  products
+WHERE
+  price > 876
+
+perlu di ingat penggunaan Subqueries di bagian select hanya boleh mengembalikan single value
+perhatikan potongan code di atas:
+SELECT price FROM products WHERE id = 3
