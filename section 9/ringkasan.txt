@@ -62,3 +62,81 @@ WHERE
 perlu di ingat penggunaan Subqueries di bagian select hanya boleh mengembalikan single value
 perhatikan potongan code di atas:
 SELECT price FROM products WHERE id = 3
+
+
+
+
+
+
+
+
+
+###################### 98. Subqueries in a From
+
+berbeda dengan penggunaan Subqueries di select, pada from akan menghasilkan banyak data dan juga bisa single value.
+namun perlu di perhatikan baik2. column yang di tampilkan pada Subqueries ini harus sama dengan statement select code 
+paling awal. dan juga setelah statement Subqueries harus gunakan alias.
+
+contoh:
+
+select name from (select name from users) as u group by name;
+
+kita beda code di atas.
+name di sini mengacu pada name -> (select name from users), harus sama, kalau cuma name ya name aja ga bisa kita tampilkan
+data yg lain.
+
+as u -> disini sebagai alias, harus dan wajib gunakan ini agar tidak error.
+
+contoh code lain:
+SELECT
+  name,
+  price_ratio
+FROM
+  (
+    SELECT
+      name,
+      price / weight AS price_ratio
+    FROM
+      products
+  ) AS p
+WHERE
+  price_ratio > 5
+
+
+
+############################ 99. From Subqueries that Return a Value
+
+pada video ini di jelaskan kita juga bisa mengembalikan single value dari Subqueries from
+
+contoh kita akan menampilkan max price.
+SELECT
+  *
+FROM
+  (
+    SELECT
+      MAX(price)
+    FROM
+      products
+  ) AS p;
+
+yang akan tampil -> column dengan nama max, isi baris nya 991
+
+
+############################## 100. Example of a Subquery in a From
+
+contoh kasus :
+find the average number of orders for all users
+
+maka code nya:
+SELECT
+  AVG(count_orders)
+FROM
+  (
+    SELECT
+      user_id,
+      COUNT(*) AS count_orders
+    FROM
+      orders
+    GROUP BY
+      user_id
+  ) AS p
