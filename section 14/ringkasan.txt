@@ -1,0 +1,86 @@
+######################## 137. Applying a Null Constraint
+
+cara update salah 1 kolom di tabel:
+misal update kolom price menjadi not Null
+
+-> alter table products alter column price set not null;
+
+
+
+
+
+
+
+########################### 138. Solving a Gotcha with Null Constraints
+
+cara update nilai jika ada yang null atau tidak ada isi nya (kosong bukan 0)
+misal price ada yang null atau kosong (bukan 0)
+
+update products set price = 9999 where price is null;
+
+
+
+
+########################## 139. Default Column Values
+jika kita ingin memberikan default value, sbb:
+
+-> alter table products alter column price set default 999;
+
+
+######################### 140. Applying a Unique Constraint to One column
+
+untuk memberi nama unik atau di dalam 1 column tidak boleh ada data yang sama,
+maka kita beri unique. misal column name tidak boleh ada nama yang sama
+
+-> alter table products add unique(name)
+
+
+
+
+
+######################### 141. Multi-Column Uniqueness
+
+untuk menghapus unique column bisa gunakan :
+
+-> alter table products drop constraint products_name_key
+
+kita juga dapat melihat dimana letak key (unique, primary key dll) di :
+tables -> namaTabel(products)-> constraint
+
+kita juga dapat menambahkan multiple column unique:
+-> alter table products add unique(name,department)
+
+
+
+
+
+##################### 142. Adding a Validation Check
+
+untuk memberikan validasi kita gunakan CHECK(isi validasi nya apa).
+
+cara memberikan validasi untuk price harus > 0
+
+-> alter table products add check(price > 0)
+
+
+#################### 143. Checks Over Multiple Columns
+
+pada video ini, kita diajarkan untuk membuat tabel dan juga memberikan validasi:
+
+contoh code nya:
+create table orders(
+	id serial primary key,
+	name varchar(40) not null,
+	create_at timestamp not null,
+	est_delivery timestamp not null,
+	check(create_at < est_delivery)
+)
+
+
+cara isi data nya:
+insert into orders(name, create_at, est_delivery) values ('Shirt', '2000-nov-20 01:00AM','2000-nov-25 01:00AM' )
+
+
+
+###################### 144. So Where Are We Applying Validation?
+

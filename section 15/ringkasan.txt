@@ -1,0 +1,9 @@
+########################## 145. Approaching More Complicated Designs
+
+
+
+#################### 146. Using a SQL Design Tool
+
+link untuk membuat skema db
+
+-> https://sql.toad.cz/?

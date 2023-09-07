@@ -1,0 +1,71 @@
+#################### 121. The Greatest Value in a List
+fungsi dari Greatest adalah untuk mengambil nilai terbesar,
+berbeda dengan MAX(), Greatest akan mengubah nilai yang kurang dari standar menjadi
+sama dengan standar.
+
+contoh :
+SELECT Greatest(10,30) -> hasil nya akan 30, karena tertinggi
+
+tapi jika kita terapkan pada tabel products di course ini, skenario nya akan seperti ini:
+
+misal ada column price dan weight:
+kita disuruh tampilkan price, weight dan hasil perkalian antara price dan weight sebut aja cost
+
+nah misal kita ingin mengisi cost jika kurang dari 30 maka di isi dengan 30. jika lebih
+dari 30 kita isi dengan nilai asli nya:
+
+gambaran nya:
+
+price    weight    cost
+10       3          30
+10       2          20 -> akan di ubah jadi 30, sesuai aturan di atas
+30       3          90
+
+
+contoh code:
+SELECT name, weight, GREATEST(30,price * weight) FROM products
+
+
+
+
+###################### 122. And the Least Value in a List!
+
+kebalikan dari Greatest, Least mencari nilai paling kecil
+misal dari data (10,3,5,6) -> maka nilai paling kecil yaitu 3
+
+sama di kasus : SELECT name, weight, GREATEST(30,price * weight) FROM products
+
+kita ubah sedikit menjadi :
+SELECT name, price, LEAST(400,price * weight) FROM products
+
+ketika nilai ada lebih dari 400, maka akan di ganti tetap jadi 400.
+jika nilai nya kurang dari 400. nilai asli itu akan di tampilkan
+
+
+
+
+
+
+
+
+############################## 123. The Case Keyword
+Case Keyword mirip if statement
+jadi kita juga bisa melakukan pengecekan
+
+contoh code:
+SELECT
+  name,
+  price,
+  CASE
+    WHEN price > 600 THEN 'High'
+    WHEN price > 300 THEN 'Medium'
+    ELSE 'Cheap'
+  END
+FROM
+  products
+
+kita juga bisa melakukan operator aritmatika * / + - dsb
+pada bagian :
+
+    WHEN price / weight > 600 THEN 'High'
+    WHEN price * weight > 300 THEN 'Medium'

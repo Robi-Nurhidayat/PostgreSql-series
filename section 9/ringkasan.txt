@@ -140,3 +140,259 @@ FROM
     GROUP BY
       user_id
   ) AS p
+
+
+############################## 103. Subqueries in a Join Clause
+aturan dalam penggunaan Subqueries di join adalah column nya harus compatible dengan klausa ON 
+
+contoh:
+SELECT
+  first_name
+FROM
+  users
+  JOIN (
+    SELECT
+      user_id
+    FROM
+      orders
+    WHERE
+      user_id = 3
+  ) as o ON o.user_id = users.id
+
+
+
+########################## 104. More Useful - Subqueries with Where
+
+pada Subqueries di klausa where dapat menghasilkan banyak data atau single value
+
+contoh:
+SELECT
+  id
+FROM
+  orders
+WHERE
+  product_id IN(
+    SELECT
+      id
+    FROM
+      products
+    WHERE
+      price / weight > 100
+  )
+
+
+######################### 105. Data Structure with Where Subqueries
+
+menjelaskan dan memberikan contoh operator pada Subqueries seperti:
+> 
+<
+>=
+in 
+not in 
+dll. liat kembali video nya jika lupa
+
+
+
+
+
+##################################### 108. The Not In Operator with a List
+
+contoh kasus:
+show the name of all products that are not in the same departement as products with a
+price less than 100
+
+bahasa indo:
+menampilkan nama semua produk yang 
+tidak berada di departemen yang sama dengan produk dengan harga kurang dari 100
+
+
+contoh code nya:
+SELECT
+  name,department
+FROM
+  products
+WHERE
+  department NOT IN (
+    SELECT
+      department
+    FROM
+      products
+    WHERE
+      price < 100
+  )
+
+
+################ 109. A New Where Operator
+
+contoh penggunaan ->          > ALL
+
+misal ada kasus :
+tampilkan nama, department dan price dan tabel products yang paling mahal dari semua products di
+departement industrial
+
+jawab:
+biasa nya kita buat code nya seperti ini:
+SELECT
+  name,
+  department,
+  price
+FROM
+  products
+WHERE
+  price > (
+    SELECT
+      MAX(price)
+    FROM
+      products
+    WHERE
+      department = 'Industrial'
+  )
+
+namun ada cara lain menggunakan ALL
+SELECT
+  name,
+  department,
+  price
+FROM
+  products
+WHERE
+  price > ALL (
+    SELECT
+      price
+    FROM
+      products
+    WHERE
+      department = 'Industrial'
+  )
+disini kita menghilangkan MAX.
+maksud code nya : dimana price lebih besar dari semua isi dari Subqueries column price
+
+
+####################### 110. Finally Some!
+
+menurut penjelasan video SOME itu alias dari ANY
+
+some digunakan jika kita ingin menampilkan data yang ada pada rentang nilai itu.
+
+misal 20 > some (10,30). secara hasil 20 masuk ke dalam data antara 10 30. jadi akan di tampilkan
+
+contoh kasus:
+show the name of products that are more expensive than at least one product in the 'industrial' departement
+
+bahasa indo:
+tunjukkan nama produk yang lebih mahal dari departemen 'industri' setidaknya satu produk di departemen 'industri'
+
+
+artinya kalau departemen industri hasil column price nya (10,20,40,5,50) kemudian kita ada kondisi where 20 > some (10,20,40,5,50)
+
+20 masuk karena > dari 10
+
+contoh code:
+SELECT
+  name
+FROM
+  products
+WHERE
+  price > SOME (
+    SELECT
+      price
+    FROM
+      products
+    WHERE
+      department = 'Industrial'
+  )
+
+############################# 113. Probably Too Much About Correlated Subqueries
+
+pada video ini di jelaskan bahwa kita melakukan Subqueries Correlated 
+artinya kita dapat memanggil tabel utama di dalam Subqueries dengan syarat harus gunakan AS
+
+contoh kasus:
+show name,departemen, dan price of the most
+expensive product in each departemen
+
+code nya:
+
+SELECT
+  name,
+  department,
+  price
+FROM
+  products AS p1
+WHERE
+  price = (
+    SELECT
+      MAX(price)
+    FROM
+      products as p2
+    WHERE
+      p2.department = p1.department
+  )
+
+penjelasan:
+perhatikan bagian where
+pada saat iterasi pertama, data akan di bandingkan di Subqueries.
+misal data pertama departemen nya adalah mainan, maka iterasi ke 1 adalah mainan kemudian di Subqueries akan di cari atau di loop
+untuk menemukan setiap departemen mainan ini. misal ada 3 data hasil Subqueries, dari hasil ini akan di ambil
+yang paling besar. setelah berhasil menemukan yang paling besar, kita kembali ke bagian where diluar Subqueries
+akan kita bandingkan. apakah data pertama ini sama dengan hasil Subqueries yang nilai nya paling  besar.
+jika sama akan di disimpan dan akan di tampilkan.
+
+perlu di ingat baik baik. konsep code di atas seperti kita buat nested loop
+
+for i= 1; i < 5; i++ {
+  for j=1; j < 5; j++ {
+
+  }
+}
+
+loop di atas berjalan seperti ini:
+i nya 1 akan me loop 5 kali block j, baru lanjut ke i nya 2 begitu seterus nya
+
+
+
+
+
+
+
+
+############################## 114. More on Correlated Subqueries
+
+contoh soal:
+without using a join or a group by, print the number of orders for each product
+
+contoh code:
+SELECT
+  name,
+  (
+    SELECT
+      COUNT(*)
+    FROM
+      orders AS o1
+    WHERE
+      o1.product_id = p1.id
+  )
+FROM
+  products AS p1
+
+
+
+############################## 115. A Select Without a From?
+
+ini tuh digunakan jika kita hanya ingin mendapatkan one value aja
+misal cari price terbesar dan rata rata dari tabel product 
+
+code nya:
+SELECT
+  (
+    SELECT
+      MAX(price)
+    FROM
+      products
+  ),
+  (
+    SELECT
+      AVG(price)
+    FROM
+      products
+  )

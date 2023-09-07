@@ -1,0 +1,15 @@
+################## 118. Selecting Distinct Values
+
+Distinct berfungi untuk menampilkan data secara unik. artinya tidak ada data yang 
+sama saat di tampilkan
+
+contoh:
+SELECT DISTINCT department FROM products
+
+kita juga bisa gunakan count
+SELECT COUNT(DISTINCT department) FROM products
+
+perlu diingat penggunaan count hanya bisa digunakan hanya 1 column aja\
+SELECT COUNT(DISTINCT department) FROM products -> ini bisa
+
+SELECT COUNT(DISTINCT department,name) FROM products ->ini tidak bisa

@@ -1,0 +1,18 @@
+######################### 130. More on Number Data Types
+jangan gunakan tipe data di postgreSQL jika angka desimal akuat :
+
+- real
+- double precision
+- float
+contoh kasus untuk tipe data di atas adalah untuk menyimpan satuan kg, liter
+contoh, berapa kg sampah yang ada di tong sampah ? 
+jawab -> 1kg 1.01kg dan dsb.
+karena kasus ini jika ada perbedaan dikit tidak tapi berpengaruh
+
+berbeda jika:
+membutuhkan ke akuratan yang tinggi, misal kasus saldo di bank dsb:
+
+gunakan
+
+- numeric
+- decimal
