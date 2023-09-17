@@ -1,0 +1,34 @@
+########################### 193. Creating an Index
+cara buat index:
+
+-> create index on users(username);
+
+cara liat hasil nya:
+masuk ke table -> users->indexes
+
+secara default nama index nya yaitu:
+users_username_idx dimana:
+nama tabel, colum, id
+
+kita bisa memberi nama hasil index nya dengan:
+
+misal kita beri name user_index
+
+-> create index user_index on users(username);
+
+kita juga bisa menghapus index ini
+
+-> drop index users_username_idx;
+
+
+
+
+
+####################### 194. Benchmarking Queries
+
+saat kita ingin mengetahui berapa lama atau berapa waktu yang dibutuhkan untuk mengetahui hasil nya.
+gunakan : explain analyze di depan query
+
+contoh:
+
+-> explain analyze select * from users where username = 'Emil30'

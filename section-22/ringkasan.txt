@@ -1,0 +1,22 @@
+############################ 186. Where Does Postgres Store Data?
+kita bisa melihat dimana database kita disimpan dengan mengetikkan:
+
+-> show data_directory;
+di query tool.
+inget db kita ada didalam folder base.
+di dalam folder base ada folder dengan nama yang kita tidak tahu yang mempresentasikan nama db kita
+
+untuk mengetahui hal tersebut kita dapat gunakan:
+
+-> select oid, datname from pg_database;
+
+nah di dalam folder db kita, terdapat banyak file yang kita tahu apa itu isi nya
+maka untuk mengetahui hal itu:
+-> select * from pg_class;
+
+######################### 187. Heaps, Blocks, and Tuples
+
+pelari hal ni
+
+
+###################### 188. Block Data Layout

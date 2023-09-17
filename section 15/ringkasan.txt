@@ -7,3 +7,16 @@
 link untuk membuat skema db
 
 -> https://sql.toad.cz/?
+############################# 155. Polymorphic Association Alternative Implementation
+pada section ini diajarkan bagaimana nilai yang di kembalikan tidak null
+
+contoh
+select COALESCE(null,5) -> yang di kembalikan adalah 5
+select COALESCE(10,5) -> yang di kembalikan adalah 10
+nilai pertama yang akan di kembalikan, tapi jika nilai pertama ada null, maka akan melihat nilai selanjut nya
+
+contoh lain:
+select COALESCE((5)::boolean::integer,0) -> yang di kembalikan adalah 1
+cara kerja code di atas adalah 5 di konversi ke boolan (akan menjadi true) -> di konversi ke integer = 1 (karena true == 1)
+
+select COALESCE((null)::boolean::integer,0) -> yang di kembalikan adalah 0
