@@ -1,0 +1,10 @@
+######################### 199. The Query Processing Pipeline
+
+############################ 200. Explain and Explain Analyze
+Explain -> build a query plan and display info about it
+Explain Analyze -> build a query plan, run it, and info about it
+
+contoh :
+explain analyze select username, contents from users join comments on users.id = comments.user_id where username='Alyson14'
+
+explain select username, contents from users join comments on users.id = comments.user_id where username='Alyson14'

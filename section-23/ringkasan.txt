@@ -32,3 +32,36 @@ gunakan : explain analyze di depan query
 contoh:
 
 -> explain analyze select * from users where username = 'Emil30'
+
+
+####################### 195. Downsides of Indexes
+setiap kita menambahkan index, kita juga menambahkan ukuran nya. jadi di storage akan lebih besar.
+
+jika kita ingin mengetahui berapa penyimpnan yang digunakan oleh tabel kita, kita bisa gunakan:
+-> select pg_size_pretty(pg_relation_size('users'))
+
+contoh diatas kita ingin melihat ukuran dari tabel users.
+
+kita juga bisa mengecek untuk Index juga. misal index yang ada di users
+-> select pg_size_pretty(pg_relation_size('users_username_idx'))
+
+
+
+################### 196. Index Types
+
+macam macam tipe index
+1. B-Tree
+2. Hash
+3. GIST
+4. SP-GIST
+5. GIN
+6. BRIN
+
+penjelasan nya cari tau
+
+
+######################## 197. Automatically Generated Indexes
+kita tidak usah membuat index untuk primary key dan unique key, karena sudah otomatis dibuatkan untuk hal ini.
+untuk melihat index yang tidak ditampilkan di pgadmin
+
+-> select relname,relkind from pg_class where relkind = 'i';
