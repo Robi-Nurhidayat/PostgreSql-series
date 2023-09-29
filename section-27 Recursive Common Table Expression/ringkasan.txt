@@ -38,3 +38,8 @@ from suggestions join users on users.id = suggestions.leader_id
 where depth > 1 limit 5;
 
 cari tau apa itu depth
+
+
+#################### sedikit tambahan
+
+kalau ada kasus mirip tree, gunakan cte
